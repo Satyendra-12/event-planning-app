@@ -9,19 +9,24 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USERNAME"] %>
-  # The password associated with the postgres role (username).
-  password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_HOST"] %>
-  port: <%= ENV["DATABASE_PORT"] %>
+  database: EventPlanning_development
+  username: postgres
+  password: Satyendra@84%
+  host: localhost
+  port: 5432
 
 test:
   <<: *default
   database: EventPlanning_test
+  username: postgres
+  password: Satyendra@84%
+  host: localhost
+  port: 5432
 
 production:
   <<: *default
   database: EventPlanning_production
-  username: EventPlanning
-  password: <%= ENV["EVENTPLANNING_DATABASE_PASSWORD"] %>
+  username: postgres
+  password: Satyendra@84%
+  host: localhost
+  port: 5432
