@@ -7,7 +7,6 @@ class EventsController < ApplicationController
 # all events 
   def index
     @events = Event.all.where(is_approved:true, event_status: [:active])
-    user = current_user
     if @events.present?
       event_data = build_event_data(@events)
       
@@ -121,24 +120,24 @@ class EventsController < ApplicationController
 
 
 
-  # def sort_events
-  #   order_by = params[:order_by]
-  #   case order_by
-  #   when "start_time"
-  #     @events = Event.order(start_time: :asc)
-  #   when "start_date"
-  #     @events = Event.order(start_date: :asc)
-  #   else
-  #     @events = Event.all
-  #   end
+  def sort_events
+    order_by = params[:order_by]
+    case order_by
+    when "start_date"
+      @events = Event.order(start_date: :asc)
+    when ""
+      @events = Event.order(start_date: :asc)
+    else
+      @events = Event.all
+    end
     
-  #   if @events.present?
-  #     event_data = build_event_data(@events)
-  #     success(data: event_data)
-  #   else
-  #     error_404("not found")
-  #   end
-  # end
+    if @events.present?
+      event_data = build_event_data(@events)
+      success(data: event_data)
+    else
+      error_404("not found")
+    end
+  end
   
   def search_events
     search_by = params[:search_by]

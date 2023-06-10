@@ -1,5 +1,3 @@
-
-
 class Users::SessionsController < Devise::SessionsController
   include Responses
   skip_before_action :verify_authenticity_token
@@ -7,10 +5,25 @@ class Users::SessionsController < Devise::SessionsController
 
  
 
-  def respond_with(resource, options={})
+  def respond_with(resource, options = {})
     user = User.find_by(email: resource[:email])
   
     if user && user.active? && user.is_verified?
+
+      # notification_title = "Welcome"
+      # notification_body = "You have successfully signed in"
+      # devise_token = user.devise_token
+  
+      # message = {
+      #   notification: {
+      #     title: notification_title,
+      #     body: notification_body
+      #   },
+      #   token: devise_token
+      # }
+  
+      # FCM_CLIENT.send(message)
+  
       success("User signed in successfully")
     elsif user && user.suspended?
       error_403("Your account has been disabled")

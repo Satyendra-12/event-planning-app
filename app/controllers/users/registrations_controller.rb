@@ -6,6 +6,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def respond_with(resource, options={})
     if resource.persisted?
       token = JWT.encode({ user_id: resource.id }, Rails.application.secrets.secret_key_base)
+
+      # resource.update(devise_token: token) 
+
       resource.send_confirmation_instructions
 
       success('A mail has sent to your email, please verify your account')
@@ -17,5 +20,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.permit(:email, :password)
   end
+
+  # def sign_up_params
+  #   params.permit(:email, :password, :fcm_token)
+  # end
+  
 
 end
